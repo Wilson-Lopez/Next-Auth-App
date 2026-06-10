@@ -1,6 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import { authenticate, ensureOAuthUser } from "@/lib/users";
 
 export const authOptions: NextAuthOptions = {
@@ -34,6 +35,12 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_ID ?? "",
       clientSecret: process.env.GITHUB_SECRET ?? "",
     }),
+
+    // 3) Inicio de sesión con Google (OAuth)
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+    }),
   ],
 
   // Credentials requiere estrategia JWT para la sesión.
@@ -44,9 +51,12 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
-    // Al entrar con GitHub, registramos un usuario ligero para sus favoritos.
+    // Al entrar con un proveedor externo, registramos un usuario ligero
+    // para que sus favoritos funcionen igual que con credenciales.
     async signIn({ user, account }) {
-      if (account?.provider === "github" && user.email) {
+      const isOAuth =
+        account?.provider === "github" || account?.provider === "google";
+      if (isOAuth && user.email) {
         ensureOAuthUser(user.email, user.name ?? user.email);
       }
       return true;

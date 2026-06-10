@@ -14,7 +14,7 @@ export default async function MovieDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params; // en Next 16 params es una Promise
-  const movie = getMovieById(id);
+  const movie = await getMovieById(id);
   if (!movie) notFound();
 
   const session = await getServerSession(authOptions);

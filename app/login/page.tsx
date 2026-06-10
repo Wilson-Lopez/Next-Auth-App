@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FaGithub, FaFilm } from "react-icons/fa";
+import { FaGithub, FaGoogle, FaFilm } from "react-icons/fa";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -88,13 +88,22 @@ export default function LoginPage() {
           <span className="h-px flex-1 bg-white/10" />
         </div>
 
-        <button
-          onClick={() => signIn("github", { callbackUrl: "/" })}
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
-        >
-          <FaGithub size={18} />
-          Continuar con GitHub
-        </button>
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={() => signIn("github", { callbackUrl: "/" })}
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
+          >
+            <FaGithub size={18} />
+            Continuar con GitHub
+          </button>
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
+          >
+            <FaGoogle size={16} className="text-rose-400" />
+            Continuar con Google
+          </button>
+        </div>
 
         <p className="mt-6 text-center text-sm text-zinc-400">
           ¿No tienes cuenta?{" "}

@@ -13,7 +13,7 @@ export default async function FavoritosPage() {
   if (!session?.user?.email) redirect("/login");
 
   const favoriteIds = getFavorites(session.user.email);
-  const movies = getMoviesByIds(favoriteIds);
+  const movies = await getMoviesByIds(favoriteIds);
 
   return (
     <main className="flex-1">
