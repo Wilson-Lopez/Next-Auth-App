@@ -12,7 +12,7 @@ export default async function FavoritosPage() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) redirect("/login");
 
-  const favoriteIds = getFavorites(session.user.email);
+  const favoriteIds = await getFavorites(session.user.email);
   const movies = await getMoviesByIds(favoriteIds);
 
   return (

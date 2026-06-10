@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit -q -m 'Migrar store de usuarios a Vercel Postgres \\(modo dual con archivo en local\\) *)"
+    ]
+  }
+}

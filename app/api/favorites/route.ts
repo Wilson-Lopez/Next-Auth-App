@@ -9,7 +9,7 @@ export async function GET() {
   if (!session?.user?.email) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });
   }
-  return NextResponse.json({ favorites: getFavorites(session.user.email) });
+  return NextResponse.json({ favorites: await getFavorites(session.user.email) });
 }
 
 // POST /api/favorites { movieId } -> añade/quita un favorito (toggle)
@@ -24,6 +24,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Falta movieId" }, { status: 400 });
   }
 
-  const favorites = toggleFavorite(session.user.email, movieId);
+  const favorites = await toggleFavorite(session.user.email, movieId);
   return NextResponse.json({ favorites });
 }

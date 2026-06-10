@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = createUser(name, email, password);
+    const user = await createUser(name, email, password);
 
     return NextResponse.json(
       { id: user.id, name: user.name, email: user.email },

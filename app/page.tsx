@@ -9,7 +9,7 @@ import MovieCard from "@/components/MovieCard";
 export default async function Home() {
   const session = await getServerSession(authOptions);
   const favorites = session?.user?.email
-    ? getFavorites(session.user.email)
+    ? await getFavorites(session.user.email)
     : [];
 
   const movies = await fetchMovies();

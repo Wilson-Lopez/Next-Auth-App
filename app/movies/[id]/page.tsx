@@ -19,7 +19,7 @@ export default async function MovieDetailPage({
 
   const session = await getServerSession(authOptions);
   const isFavorite = session?.user?.email
-    ? getFavorites(session.user.email).includes(movie.id)
+    ? (await getFavorites(session.user.email)).includes(movie.id)
     : false;
 
   return (

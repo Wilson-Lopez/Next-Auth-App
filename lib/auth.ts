@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         // Verifica password (bcrypt) y aplica el bloqueo por intentos.
-        const result = authenticate(credentials.email, credentials.password);
+        const result = await authenticate(credentials.email, credentials.password);
 
         if (!result.ok) {
           // El mensaje llega al cliente vía el error de signIn.
@@ -57,7 +57,7 @@ export const authOptions: NextAuthOptions = {
       const isOAuth =
         account?.provider === "github" || account?.provider === "google";
       if (isOAuth && user.email) {
-        ensureOAuthUser(user.email, user.name ?? user.email);
+        await ensureOAuthUser(user.email, user.name ?? user.email);
       }
       return true;
     },
